@@ -1,542 +1,398 @@
 # This-is-where-we-start
-<!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<!doctype html>
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome | Creative Portfolio</title>
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- FontAwesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Afterglow — Stories & Messages</title>
+  <style>
+    :root {
+      --ink: #211b35;
+      --muted: #817b91;
+      --paper: #fbf9ff;
+      --panel: #fff;
+      --line: #eeeaf5;
+      --violet: #7656e8;
+      --pink: #f16ba8;
+      --mint: #8be1c3;
+      --shadow: 0 12px 36px #38265d12;
+    }
 
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Plus Jakarta Sans', 'sans-serif'],
-                        mono: ['Fira Code', 'monospace'],
-                    },
-                    colors: {
-                        brand: {
-                            50: '#f0f6ff',
-                            100: '#e0edff',
-                            500: '#3b82f6',
-                            600: '#2563eb',
-                            700: '#1d4ed8',
-                            accent: '#a855f7',
-                            cyan: '#06b6d4',
-                        }
-                    },
-                    animation: {
-                        'glow-pulse': 'glow 3s infinite alternate',
-                        'float': 'float 6s ease-in-out infinite',
-                        'typewriter': 'typing 2s steps(20) forwards',
-                    },
-                    keyframes: {
-                        glow: {
-                            '0%': { opacity: '0.4', filter: 'blur(20px)' },
-                            '100%': { opacity: '0.8', filter: 'blur(35px)' }
-                        },
-                        float: {
-                            '0%, 100%': { transform: 'translateY(0px)' },
-                            '50%': { transform: 'translateY(-12px)' }
-                        }
-                    }
-                }
-            }
-        }
-    </script>
-
-    <style>
-        /* Custom Glowing & Backdrop Effects */
-        .glass-panel {
-            background: rgba(15, 23, 42, 0.65);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-        }
-        
-        .text-gradient {
-            background: linear-gradient(135deg, #60a5fa 0%, #a855f7 50%, #ec4899 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .glow-effect {
-            box-shadow: 0 0 25px -5px rgba(59, 130, 246, 0.5);
-        }
-
-        /* Greeting Screen Transition */
-        #greeting-overlay {
-            transition: opacity 0.8s ease-in-out, visibility 0.8s;
-        }
-
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #0f172a;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #334155;
-            border-radius: 4px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #475569;
-        }
-    </style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 12% 0%, #f3eaff 0, transparent 28rem),
+        var(--paper);
+      font: 15px/1.45 Inter, ui-sans-serif, system-ui, -apple-system, sans-serif;
+    }
+    button, input { font: inherit; }
+    button { cursor: pointer; }
+    .app { min-height: 100vh; display: grid; grid-template-columns: 245px 1fr; }
+    aside {
+      height: 100vh; position: sticky; top: 0; padding: 28px 18px;
+      background: #ffffffc9; border-right: 1px solid var(--line);
+      display: flex; flex-direction: column; gap: 28px;
+    }
+    .brand { display: flex; align-items: center; gap: 11px; padding: 0 10px; }
+    .logo {
+      width: 38px; height: 38px; border-radius: 13px;
+      display: grid; place-items: center; color: white; font-weight: 900;
+      background: linear-gradient(135deg, var(--violet), var(--pink));
+      box-shadow: 0 7px 16px #7656e844;
+    }
+    .brand strong { font-size: 18px; letter-spacing: -.5px; }
+    .brand small { display: block; color: var(--muted); font-size: 11px; }
+    .nav { display: grid; gap: 7px; }
+    .nav button {
+      border: 0; background: transparent; color: #777187; text-align: left;
+      padding: 12px 14px; border-radius: 13px; display: flex; gap: 13px;
+      align-items: center; font-weight: 650;
+    }
+    .nav button.active, .nav button:hover { background: #f0ebff; color: var(--violet); }
+    .nav .icon { width: 20px; text-align: center; font-size: 18px; }
+    .side-bottom { margin-top: auto; }
+    .profile-mini { display: flex; align-items: center; gap: 10px; padding: 10px; }
+    .avatar {
+      width: 42px; height: 42px; border-radius: 50%; display: grid;
+      place-items: center; color: white; font-weight: 800; flex: 0 0 auto;
+      background: linear-gradient(145deg, #ffb58b, #ee6d9e);
+    }
+    .profile-mini small { color: var(--muted); display: block; }
+    main { min-width: 0; padding: 28px clamp(18px, 4vw, 54px) 50px; }
+    .topbar { display: flex; align-items: center; gap: 16px; margin-bottom: 28px; }
+    .search {
+      max-width: 480px; width: 100%; position: relative;
+    }
+    .search span { position: absolute; left: 16px; top: 11px; color: #9992a8; }
+    .search input {
+      width: 100%; border: 1px solid var(--line); background: white;
+      border-radius: 14px; padding: 12px 15px 12px 43px; outline: none;
+    }
+    .search input:focus { border-color: #b6a4ff; box-shadow: 0 0 0 3px #7656e81b; }
+    .top-actions { margin-left: auto; display: flex; gap: 10px; }
+    .icon-btn {
+      border: 1px solid var(--line); background: white; width: 43px; height: 43px;
+      border-radius: 14px; color: var(--ink); font-size: 17px;
+    }
+    .welcome { display: flex; justify-content: space-between; align-items: end; gap: 20px; }
+    h1 { margin: 0; font-size: clamp(27px, 4vw, 36px); letter-spacing: -1.2px; }
+    .sub { margin: 6px 0 0; color: var(--muted); }
+    .primary {
+      border: 0; border-radius: 13px; padding: 12px 17px; color: white;
+      background: linear-gradient(110deg, var(--violet), #9974f2);
+      font-weight: 750; box-shadow: 0 8px 18px #7656e833;
+    }
+    .section-head { display: flex; align-items: center; justify-content: space-between; margin: 30px 0 14px; }
+    h2 { font-size: 17px; margin: 0; letter-spacing: -.3px; }
+    .text-btn { border: 0; background: none; color: var(--violet); font-weight: 700; }
+    .stories { display: flex; gap: 18px; overflow-x: auto; padding: 4px 2px 10px; }
+    .story { min-width: 76px; text-align: center; border: 0; background: none; padding: 0; color: var(--ink); }
+    .ring {
+      width: 68px; height: 68px; padding: 3px; margin: auto auto 7px;
+      border-radius: 50%; background: linear-gradient(135deg, #f3a4c8, #8062ed);
+    }
+    .ring.seen { background: #dedbe5; }
+    .story-face {
+      height: 100%; border: 3px solid white; border-radius: 50%;
+      display: grid; place-items: center; color: white; font-weight: 800;
+      background: linear-gradient(145deg, #f7ad8d, #a36ce4);
+    }
+    .story-name { display: block; font-size: 12px; white-space: nowrap; }
+    .add-story .story-face { background: #f0ebff; color: var(--violet); font-size: 25px; }
+    .content-grid { display: grid; grid-template-columns: minmax(0, 1.55fr) minmax(260px, .8fr); gap: 22px; }
+    .card {
+      background: var(--panel); border: 1px solid var(--line); border-radius: 20px;
+      box-shadow: var(--shadow);
+    }
+    .feed-card { overflow: hidden; }
+    .feed-cover {
+      min-height: 205px; display: grid; place-items: center; position: relative;
+      color: white; background:
+        linear-gradient(120deg, #30244f55, #30244f10),
+        radial-gradient(circle at 70% 35%, #ffd0a8 0 9%, transparent 10%),
+        linear-gradient(135deg, #e68aa9, #8a6ce3 55%, #423c70);
+    }
+    .feed-cover::before, .feed-cover::after {
+      content: ""; position: absolute; width: 130px; height: 130px; border-radius: 50%;
+      background: #ffdfb533; filter: blur(2px);
+    }
+    .feed-cover::before { left: 14%; bottom: -58px; }
+    .feed-cover::after { right: 13%; top: -58px; }
+    .cover-label { z-index: 1; text-align: center; text-shadow: 0 2px 12px #24183a66; }
+    .cover-label strong { display: block; font-size: 25px; }
+    .cover-label span { font-size: 13px; opacity: .9; }
+    .feed-body { padding: 16px 18px 18px; }
+    .author { display: flex; align-items: center; gap: 10px; }
+    .author .avatar { width: 36px; height: 36px; font-size: 12px; }
+    .author small { display: block; color: var(--muted); }
+    .feed-caption { margin: 14px 0; }
+    .feed-actions { display: flex; gap: 18px; color: #777187; }
+    .feed-actions button { border: 0; background: none; color: inherit; padding: 0; }
+    .feed-actions button:hover { color: var(--pink); }
+    .chat-card { padding: 18px; }
+    .chat-row {
+      display: flex; align-items: center; gap: 11px; padding: 13px 0;
+      border-bottom: 1px solid #f2eff6; cursor: pointer;
+    }
+    .chat-row:last-child { border-bottom: 0; }
+    .chat-row .avatar { width: 42px; height: 42px; font-size: 12px; }
+    .chat-info { min-width: 0; flex: 1; }
+    .chat-info strong { display: block; font-size: 13px; }
+    .chat-info small { display: block; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .time { color: #a29bad; font-size: 11px; align-self: flex-start; }
+    .dot { width: 8px; height: 8px; background: var(--violet); border-radius: 50%; }
+    .online { position: relative; }
+    .online::after { content: ""; position: absolute; right: 0; bottom: 1px; width: 10px; height: 10px; border: 2px solid white; border-radius: 50%; background: #55c999; }
+    .empty { display: none; padding: 25px; color: var(--muted); text-align: center; }
+    .toast {
+      position: fixed; left: 50%; bottom: 24px; transform: translate(-50%, 20px);
+      background: #241d38; color: white; padding: 12px 18px; border-radius: 12px;
+      opacity: 0; pointer-events: none; transition: .2s; box-shadow: var(--shadow);
+    }
+    .toast.show { opacity: 1; transform: translate(-50%, 0); }
+    @media (max-width: 850px) {
+      .app { grid-template-columns: 76px 1fr; }
+      aside { padding: 22px 10px; align-items: center; }
+      .brand { padding: 0; }
+      .brand > div:last-child, .nav .label, .profile-mini > div:last-child { display: none; }
+      .nav { width: 100%; }
+      .nav button { justify-content: center; padding: 13px 8px; }
+      .profile-mini { padding: 0; }
+      .content-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 540px) {
+      .app { display: block; padding-bottom: 66px; }
+      aside {
+        height: 62px; position: fixed; z-index: 5; top: auto; bottom: 0; left: 0; right: 0;
+        width: 100%; padding: 5px 10px; border-right: 0; border-top: 1px solid var(--line);
+        background: #fffF; backdrop-filter: blur(12px);
+      }
+      .brand, .side-bottom { display: none; }
+      .nav { display: flex; justify-content: space-around; }
+      .nav button { flex: 1; padding: 8px 2px; }
+      main { padding: 20px 16px 30px; }
+      .topbar { margin-bottom: 22px; }
+      .welcome { align-items: flex-start; flex-direction: column; }
+      .welcome .primary { width: 100%; }
+      .feed-cover { min-height: 175px; }
+    }
+  </style>
 </head>
-<body class="bg-slate-950 text-slate-100 font-sans selection:bg-brand-500 selection:text-white overflow-x-hidden">
+<body>
+  <div class="app">
+    <aside>
+      <div class="brand">
+        <div class="logo">a</div>
+        <div><strong>afterglow</strong><small>little moments, shared</small></div>
+      </div>
 
-    <!-- ========================================== -->
-    <!-- 1. ENTRY GREETING ANIMATION OVERLAY        -->
-    <!-- ========================================== -->
-    <div id="greeting-overlay" class="fixed inset-0 z-50 flex flex-col items-center justify-center bg-slate-950 text-white cursor-pointer select-none">
-        <!-- Background Ambient Blur -->
-        <div class="absolute w-72 h-72 bg-brand-500/20 rounded-full blur-3xl animate-pulse"></div>
-        <div class="absolute w-72 h-72 bg-purple-500/20 rounded-full blur-3xl animate-pulse delay-700"></div>
+      <nav class="nav" aria-label="Main navigation">
+        <button class="active" data-page="Home"><span class="icon">⌂</span><span class="label">Home</span></button>
+        <button data-page="Messages"><span class="icon">◉</span><span class="label">Messages</span></button>
+        <button data-page="Discover"><span class="icon">✦</span><span class="label">Discover</span></button>
+        <button data-page="Memories"><span class="icon">▣</span><span class="label">Memories</span></button>
+        <button data-page="Profile"><span class="icon">♙</span><span class="label">Profile</span></button>
+      </nav>
 
-        <div class="relative z-10 text-center px-4">
-            <!-- Animated Greeting Text Block -->
-            <div id="greeting-text-container" class="mb-6 h-24 flex items-center justify-center">
-                <h1 id="greeting-text" class="text-6xl sm:text-8xl font-extrabold tracking-tight text-gradient transition-all duration-300 transform scale-95 opacity-0">
-                    Hello!
-                </h1>
-            </div>
-            
-            <p id="greeting-sub" class="text-slate-400 font-mono text-sm sm:text-base opacity-0 transition-opacity duration-700 delay-300">
-                Welcome to my digital space 👋
-            </p>
-
-            <button id="enter-btn" onclick="dismissGreeting()" class="mt-8 px-6 py-3 rounded-full glass-panel hover:bg-slate-800/80 text-brand-500 font-medium text-sm tracking-wide border border-brand-500/30 hover:border-brand-500/80 transition-all duration-300 hover:scale-105 active:scale-95 opacity-0 cursor-pointer shadow-lg shadow-brand-500/10">
-                Click to explore <i class="fa-solid fa-arrow-right ml-2 text-xs"></i>
-            </button>
+      <div class="side-bottom">
+        <div class="profile-mini">
+          <div class="avatar">JD</div>
+          <div><strong>Jamie Davis</strong><small>@jamie.d</small></div>
         </div>
-    </div>
+      </div>
+    </aside>
 
-    <!-- Background Ambient Glow Shapes -->
-    <div class="fixed top-0 left-1/4 w-96 h-96 bg-blue-600/15 rounded-full blur-[120px] pointer-events-none -z-10 animate-glow-pulse"></div>
-    <div class="fixed bottom-0 right-1/4 w-96 h-96 bg-purple-600/15 rounded-full blur-[120px] pointer-events-none -z-10 animate-glow-pulse" style="animation-delay: 1.5s;"></div>
-
-    <!-- ========================================== -->
-    <!-- 2. NAVIGATION BAR                         -->
-    <!-- ========================================== -->
-    <header class="fixed top-0 left-0 right-0 z-40 px-4 sm:px-8 py-4 transition-all duration-300" id="navbar">
-        <div class="max-w-6xl mx-auto glass-panel rounded-full px-6 py-3 flex items-center justify-between">
-            <a href="#" class="font-mono text-lg font-bold text-gradient flex items-center gap-2">
-                <i class="fa-solid fa-code text-brand-500"></i>
-                <span>dev.portfolio</span>
-            </a>
-
-            <!-- Desktop Nav Links -->
-            <nav class="hidden md:flex items-center space-x-8 text-sm font-medium text-slate-300">
-                <a href="#about" class="hover:text-brand-500 transition-colors">About</a>
-                <a href="#projects" class="hover:text-brand-500 transition-colors">Projects</a>
-                <a href="#skills" class="hover:text-brand-500 transition-colors">Skills</a>
-                <a href="#contact" class="hover:text-brand-500 transition-colors">Contact</a>
-            </nav>
-
-            <!-- Socials / CTA -->
-            <div class="hidden md:flex items-center space-x-4">
-                <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="p-2 text-slate-400 hover:text-white transition-colors" title="GitHub Profile">
-                    <i class="fa-brands fa-github text-xl"></i>
-                </a>
-                <a href="#contact" class="px-4 py-2 text-xs font-semibold rounded-full bg-brand-600 hover:bg-brand-500 text-white transition-all duration-200 shadow-md shadow-brand-600/30">
-                    Get in Touch
-                </a>
-            </div>
-
-            <!-- Mobile Menu Toggle Button -->
-            <button id="mobile-menu-btn" onclick="toggleMobileMenu()" class="md:hidden text-slate-300 hover:text-white p-1">
-                <i class="fa-solid fa-bars text-xl"></i>
-            </button>
+    <main>
+      <div class="topbar">
+        <label class="search">
+          <span>⌕</span>
+          <input id="search" type="search" placeholder="Search friends and chats..." />
+        </label>
+        <div class="top-actions">
+          <button class="icon-btn" aria-label="Notifications" onclick="notify('You’re all caught up ✨')">♧</button>
+          <button class="icon-btn" aria-label="Settings" onclick="notify('Settings coming soon')">⚙</button>
         </div>
+      </div>
 
-        <!-- Mobile Menu Dropdown -->
-        <div id="mobile-menu" class="hidden md:hidden max-w-6xl mx-auto mt-2 glass-panel rounded-2xl p-6 transition-all duration-300">
-            <nav class="flex flex-col space-y-4 text-center">
-                <a href="#about" onclick="toggleMobileMenu()" class="text-slate-300 hover:text-brand-500 py-2 border-b border-slate-800">About</a>
-                <a href="#projects" onclick="toggleMobileMenu()" class="text-slate-300 hover:text-brand-500 py-2 border-b border-slate-800">Projects</a>
-                <a href="#skills" onclick="toggleMobileMenu()" class="text-slate-300 hover:text-brand-500 py-2 border-b border-slate-800">Skills</a>
-                <a href="#contact" onclick="toggleMobileMenu()" class="text-slate-300 hover:text-brand-500 py-2">Contact</a>
-            </nav>
+      <section class="welcome">
+        <div>
+          <h1 id="greeting">Good afternoon, Jamie ✨</h1>
+          <p class="sub">A little peek at what your friends are up to.</p>
         </div>
-    </header>
+        <button class="primary" onclick="notify('Camera feature coming soon 📸')">＋ Share a moment</button>
+      </section>
 
-    <!-- MAIN CONTENT CONTAINER -->
-    <main class="max-w-6xl mx-auto px-4 sm:px-8 pt-32 space-y-32">
+      <section>
+        <div class="section-head">
+          <h2>Stories for you</h2>
+          <button class="text-btn" onclick="notify('Showing all stories')">See all</button>
+        </div>
+        <div class="stories" id="stories">
+          <button class="story add-story" data-search="your story">
+            <div class="ring seen"><div class="story-face">＋</div></div>
+            <span class="story-name">Your story</span>
+          </button>
+          <button class="story" data-search="maya chen">
+            <div class="ring"><div class="story-face" style="background:linear-gradient(145deg,#f5b38c,#e66d8d)">MC</div></div>
+            <span class="story-name">Maya</span>
+          </button>
+          <button class="story" data-search="leo park">
+            <div class="ring"><div class="story-face" style="background:linear-gradient(145deg,#7bd6c1,#4e81c9)">LP</div></div>
+            <span class="story-name">Leo</span>
+          </button>
+          <button class="story" data-search="amira ali">
+            <div class="ring"><div class="story-face" style="background:linear-gradient(145deg,#e8a4d5,#7356bd)">AA</div></div>
+            <span class="story-name">Amira</span>
+          </button>
+          <button class="story" data-search="noah williams">
+            <div class="ring seen"><div class="story-face" style="background:linear-gradient(145deg,#f1c16e,#e77d65)">NW</div></div>
+            <span class="story-name">Noah</span>
+          </button>
+          <button class="story" data-search="zoe kim">
+            <div class="ring"><div class="story-face" style="background:linear-gradient(145deg,#a2d79c,#509d8c)">ZK</div></div>
+            <span class="story-name">Zoe</span>
+          </button>
+          <button class="story" data-search="eli brooks">
+            <div class="ring"><div class="story-face" style="background:linear-gradient(145deg,#f4a082,#bd5d8f)">EB</div></div>
+            <span class="story-name">Eli</span>
+          </button>
+        </div>
+      </section>
 
-        <!-- ========================================== -->
-        <!-- 3. HERO SECTION                            -->
-        <!-- ========================================== -->
-        <section id="hero" class="min-h-[75vh] flex flex-col justify-center items-center text-center relative pt-8">
-            <!-- Badge -->
-            <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full glass-panel text-xs text-brand-500 mb-6 border border-brand-500/20">
-                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
-                <span>Available for new opportunities</span>
+      <div class="content-grid">
+        <section>
+          <div class="section-head"><h2>Today’s moments</h2><button class="text-btn" onclick="notify('You’re viewing the latest moments')">Latest</button></div>
+          <article class="card feed-card" data-search="maya chen golden hour beach">
+            <div class="feed-cover">
+              <div class="cover-label"><strong>golden hour ✦</strong><span>somewhere by the coast</span></div>
             </div>
-
-            <!-- Glowing Hero Heading -->
-            <h1 class="text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight mb-6 leading-tight">
-                Crafting modern web <br class="hidden sm:inline" />
-                <span class="text-gradient">experiences with code.</span>
-            </h1>
-
-            <!-- Subtitle -->
-            <p class="max-w-2xl text-slate-400 text-base sm:text-lg mb-10 leading-relaxed">
-                Hi, I'm a passionate full-stack developer specializing in building scalable web applications, beautiful user interfaces, and interactive open-source projects.
-            </p>
-
-            <!-- CTA Buttons -->
-            <div class="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto">
-                <a href="#projects" class="w-full sm:w-auto px-8 py-3.5 rounded-full bg-gradient-to-r from-brand-600 to-purple-600 hover:from-brand-500 hover:to-purple-500 text-white font-medium text-sm transition-all duration-300 shadow-lg shadow-brand-500/25 transform hover:-translate-y-0.5">
-                    View My Work <i class="fa-solid fa-arrow-down ml-2 text-xs"></i>
-                </a>
-                <a href="#contact" class="w-full sm:w-auto px-8 py-3.5 rounded-full glass-panel hover:bg-slate-800 text-slate-200 font-medium text-sm transition-all duration-300 border border-slate-700/60">
-                    Contact Me
-                </a>
+            <div class="feed-body">
+              <div class="author">
+                <div class="avatar">MC</div>
+                <div><strong>Maya Chen</strong><small>12 minutes ago · Friends</small></div>
+              </div>
+              <p class="feed-caption">Chasing the last bit of sunshine 🌅</p>
+              <div class="feed-actions">
+                <button onclick="like(this)">♡ <span>24</span></button>
+                <button onclick="notify('Reply composer coming soon')">◌ Reply</button>
+                <button onclick="notify('Moment shared')">↗ Share</button>
+              </div>
             </div>
-
-            <!-- Scroll Indicator -->
-            <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 animate-bounce text-slate-500">
-                <i class="fa-solid fa-chevron-down text-lg"></i>
+          </article>
+          <article class="card feed-card" data-search="leo park coffee morning">
+            <div class="feed-cover" style="background:linear-gradient(135deg,#5f7c77,#b4a27c 55%,#f3c28c)">
+              <div class="cover-label"><strong>slow mornings ☕</strong><span>the usual little ritual</span></div>
             </div>
+            <div class="feed-body">
+              <div class="author">
+                <div class="avatar" style="background:linear-gradient(145deg,#7bd6c1,#4e81c9)">LP</div>
+                <div><strong>Leo Park</strong><small>38 minutes ago · Friends</small></div>
+              </div>
+              <p class="feed-caption">Taking the scenic route today.</p>
+              <div class="feed-actions">
+                <button onclick="like(this)">♡ <span>8</span></button>
+                <button onclick="notify('Reply composer coming soon')">◌ Reply</button>
+                <button onclick="notify('Moment shared')">↗ Share</button>
+              </div>
+            </div>
+          </article>
+          <div class="empty" id="feedEmpty">No moments match your search.</div>
         </section>
 
-        <!-- ========================================== -->
-        <!-- 4. ABOUT ME SECTION                        -->
-        <!-- ========================================== -->
-        <section id="about" class="scroll-mt-28">
-            <div class="glass-panel rounded-3xl p-8 sm:p-12 relative overflow-hidden">
-                <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
-                    
-                    <!-- Text Info -->
-                    <div class="md:col-span-7 space-y-6">
-                        <div class="inline-block font-mono text-xs text-brand-500 tracking-wider uppercase">// About Me</div>
-                        <h2 class="text-3xl sm:text-4xl font-bold text-white">Turning complex problems into elegant web solutions</h2>
-                        <p class="text-slate-300 leading-relaxed text-sm sm:text-base">
-                            I'm a software engineer with a passion for clean code, design systems, and web performance. I enjoy creating pixel-perfect user interfaces backed by solid architecture.
-                        </p>
-                        <p class="text-slate-400 leading-relaxed text-sm sm:text-base">
-                            When I'm not coding, you can find me exploring new tech stacks, contributing to GitHub open-source repositories, or refining digital UI concepts.
-                        </p>
-
-                        <!-- Quick Stats -->
-                        <div class="grid grid-cols-3 gap-4 pt-4 border-t border-slate-800">
-                            <div>
-                                <div class="text-2xl font-bold text-gradient">3+</div>
-                                <div class="text-xs text-slate-400">Years Experience</div>
-                            </div>
-                            <div>
-                                <div class="text-2xl font-bold text-gradient">20+</div>
-                                <div class="text-xs text-slate-400">Projects Built</div>
-                            </div>
-                            <div>
-                                <div class="text-2xl font-bold text-gradient">100%</div>
-                                <div class="text-xs text-slate-400">Open Source Passion</div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Interactive Tech Card -->
-                    <div class="md:col-span-5">
-                        <div class="bg-slate-900/90 rounded-2xl p-6 border border-slate-800 shadow-xl relative font-mono text-xs sm:text-sm text-slate-300 space-y-3">
-                            <!-- Code Editor Header -->
-                            <div class="flex items-center justify-between pb-3 border-b border-slate-800 text-slate-500">
-                                <div class="flex space-x-1.5">
-                                    <span class="w-3 h-3 rounded-full bg-red-500/80 inline-block"></span>
-                                    <span class="w-3 h-3 rounded-full bg-yellow-500/80 inline-block"></span>
-                                    <span class="w-3 h-3 rounded-full bg-green-500/80 inline-block"></span>
-                                </div>
-                                <span>developer.json</span>
-                            </div>
-                            <!-- JSON Snippet -->
-                            <div>
-                                <span class="text-purple-400">const</span> <span class="text-blue-400">developer</span> = {
-                            </div>
-                            <div class="pl-4">
-                                <span class="text-slate-400">name:</span> <span class="text-emerald-400">'Alex Rivera'</span>,
-                            </div>
-                            <div class="pl-4">
-                                <span class="text-slate-400">role:</span> <span class="text-emerald-400">'Frontend & Fullstack'</span>,
-                            </div>
-                            <div class="pl-4">
-                                <span class="text-slate-400">focus:</span> [<span class="text-emerald-400">'React'</span>, <span class="text-emerald-400">'Tailwind'</span>, <span class="text-emerald-400">'Node'</span>],
-                            </div>
-                            <div class="pl-4">
-                                <span class="text-slate-400">location:</span> <span class="text-emerald-400">'Global / Remote'</span>
-                            </div>
-                            <div>};</div>
-                        </div>
-                    </div>
-
-                </div>
+        <section>
+          <div class="section-head"><h2>Recent chats</h2><button class="text-btn" onclick="notify('Opening all chats')">View all</button></div>
+          <div class="card chat-card" id="chats">
+            <div class="chat-row" data-search="maya chen photo from yesterday">
+              <div class="avatar online">MC</div>
+              <div class="chat-info"><strong>Maya Chen</strong><small>Sent you a photo</small></div>
+              <span class="time">2m</span><span class="dot"></span>
             </div>
+            <div class="chat-row" data-search="leo park voice note">
+              <div class="avatar" style="background:linear-gradient(145deg,#7bd6c1,#4e81c9)">LP</div>
+              <div class="chat-info"><strong>Leo Park</strong><small>Voice note · 0:08</small></div>
+              <span class="time">18m</span>
+            </div>
+            <div class="chat-row" data-search="amira ali you: haha">
+              <div class="avatar" style="background:linear-gradient(145deg,#e8a4d5,#7356bd)">AA</div>
+              <div class="chat-info"><strong>Amira Ali</strong><small>You: haha, absolutely</small></div>
+              <span class="time">1h</span>
+            </div>
+            <div class="chat-row" data-search="noah williams streak">
+              <div class="avatar" style="background:linear-gradient(145deg,#f1c16e,#e77d65)">NW</div>
+              <div class="chat-info"><strong>Noah Williams</strong><small>🔥 Keeping the streak alive</small></div>
+              <span class="time">3h</span>
+            </div>
+            <div class="chat-row" data-search="zoe kim plans">
+              <div class="avatar" style="background:linear-gradient(145deg,#a2d79c,#509d8c)">ZK</div>
+              <div class="chat-info"><strong>Zoe Kim</strong><small>Are we still on for Friday?</small></div>
+              <span class="time">5h</span>
+            </div>
+            <div class="empty" id="chatEmpty">No chats match your search.</div>
+          </div>
         </section>
-
-        <!-- ========================================== -->
-        <!-- 5. FEATURED PROJECTS                      -->
-        <!-- ========================================== -->
-        <section id="projects" class="scroll-mt-28 space-y-8">
-            <div class="text-center space-y-2">
-                <div class="font-mono text-xs text-brand-500 tracking-wider uppercase">// My Work</div>
-                <h2 class="text-3xl sm:text-4xl font-bold text-white">Featured Projects</h2>
-                <p class="text-slate-400 text-sm max-w-xl mx-auto">Explore some of my recent open-source applications and personal web projects.</p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                
-                <!-- Project Card 1 -->
-                <div class="glass-panel rounded-2xl p-6 flex flex-col justify-between transition-all duration-300 hover:-translate-y-2 hover:border-brand-500/50 group">
-                    <div class="space-y-4">
-                        <div class="flex items-center justify-between">
-                            <div class="w-10 h-10 rounded-xl bg-brand-500/10 border border-brand-500/20 flex items-center justify-center text-brand-500 group-hover:scale-110 transition-transform">
-                                <i class="fa-solid fa-layer-group text-lg"></i>
-                            </div>
-                            <div class="flex space-x-3 text-slate-400 text-sm">
-                                <a href="#" class="hover:text-white transition-colors"><i class="fa-brands fa-github text-lg"></i></a>
-                                <a href="#" class="hover:text-white transition-colors"><i class="fa-solid fa-arrow-up-right-from-square text-sm"></i></a>
-                            </div>
-                        </div>
-                        <h3 class="text-xl font-bold text-white group-hover:text-brand-500 transition-colors">CloudSync Dashboard</h3>
-                        <p class="text-slate-400 text-sm leading-relaxed">
-                            A real-time metrics monitoring app with dynamic chart visualizations and dark mode support.
-                        </p>
-                    </div>
-                    <div class="mt-6 pt-4 border-t border-slate-800/80 flex flex-wrap gap-2">
-                        <span class="px-2.5 py-1 rounded-md bg-slate-800 text-slate-300 text-xs font-mono">React</span>
-                        <span class="px-2.5 py-1 rounded-md bg-slate-800 text-slate-300 text-xs font-mono">Tailwind</span>
-                        <span class="px-2.5 py-1 rounded-md bg-slate-800 text-slate-300 text-xs font-mono">ChartJS</span>
-                    </div>
-                </div>
-
-                <!-- Project Card 2 -->
-                <div class="glass-panel rounded-2xl p-6 flex flex-col justify-between transition-all duration-300 hover:-translate-y-2 hover:border-purple-500/50 group">
-                    <div class="space-y-4">
-                        <div class="flex items-center justify-between">
-                            <div class="w-10 h-10 rounded-xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-purple-400 group-hover:scale-110 transition-transform">
-                                <i class="fa-solid fa-wand-magic-sparkles text-lg"></i>
-                            </div>
-                            <div class="flex space-x-3 text-slate-400 text-sm">
-                                <a href="#" class="hover:text-white transition-colors"><i class="fa-brands fa-github text-lg"></i></a>
-                                <a href="#" class="hover:text-white transition-colors"><i class="fa-solid fa-arrow-up-right-from-square text-sm"></i></a>
-                            </div>
-                        </div>
-                        <h3 class="text-xl font-bold text-white group-hover:text-purple-400 transition-colors">AI Prompt Studio</h3>
-                        <p class="text-slate-400 text-sm leading-relaxed">
-                            An interactive web tool for generating, organizing, and optimizing prompt templates for LLMs.
-                        </p>
-                    </div>
-                    <div class="mt-6 pt-4 border-t border-slate-800/80 flex flex-wrap gap-2">
-                        <span class="px-2.5 py-1 rounded-md bg-slate-800 text-slate-300 text-xs font-mono">TypeScript</span>
-                        <span class="px-2.5 py-1 rounded-md bg-slate-800 text-slate-300 text-xs font-mono">Next.js</span>
-                        <span class="px-2.5 py-1 rounded-md bg-slate-800 text-slate-300 text-xs font-mono">OpenAI API</span>
-                    </div>
-                </div>
-
-                <!-- Project Card 3 -->
-                <div class="glass-panel rounded-2xl p-6 flex flex-col justify-between transition-all duration-300 hover:-translate-y-2 hover:border-cyan-500/50 group">
-                    <div class="space-y-4">
-                        <div class="flex items-center justify-between">
-                            <div class="w-10 h-10 rounded-xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400 group-hover:scale-110 transition-transform">
-                                <i class="fa-solid fa-code-commit text-lg"></i>
-                            </div>
-                            <div class="flex space-x-3 text-slate-400 text-sm">
-                                <a href="#" class="hover:text-white transition-colors"><i class="fa-brands fa-github text-lg"></i></a>
-                                <a href="#" class="hover:text-white transition-colors"><i class="fa-solid fa-arrow-up-right-from-square text-sm"></i></a>
-                            </div>
-                        </div>
-                        <h3 class="text-xl font-bold text-white group-hover:text-cyan-400 transition-colors">GitFlow Visualizer</h3>
-                        <p class="text-slate-400 text-sm leading-relaxed">
-                            A lightweight browser extension designed to visualize Git branch workflows in real-time.
-                        </p>
-                    </div>
-                    <div class="mt-6 pt-4 border-t border-slate-800/80 flex flex-wrap gap-2">
-                        <span class="px-2.5 py-1 rounded-md bg-slate-800 text-slate-300 text-xs font-mono">JavaScript</span>
-                        <span class="px-2.5 py-1 rounded-md bg-slate-800 text-slate-300 text-xs font-mono">D3.js</span>
-                        <span class="px-2.5 py-1 rounded-md bg-slate-800 text-slate-300 text-xs font-mono">CSS3</span>
-                    </div>
-                </div>
-
-            </div>
-        </section>
-
-        <!-- ========================================== -->
-        <!-- 6. SKILLS & TECHNOLOGIES                   -->
-        <!-- ========================================== -->
-        <section id="skills" class="scroll-mt-28 space-y-8">
-            <div class="text-center space-y-2">
-                <div class="font-mono text-xs text-brand-500 tracking-wider uppercase">// Skills & Toolkit</div>
-                <h2 class="text-3xl sm:text-4xl font-bold text-white">Technologies I Work With</h2>
-            </div>
-
-            <div class="glass-panel rounded-3xl p-8">
-                <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-6 text-center">
-                    
-                    <div class="p-4 rounded-xl bg-slate-900/50 hover:bg-slate-800/80 transition-colors border border-slate-800/80">
-                        <i class="fa-brands fa-html5 text-3xl text-orange-500 mb-2"></i>
-                        <div class="text-sm font-semibold text-slate-200">HTML5</div>
-                    </div>
-
-                    <div class="p-4 rounded-xl bg-slate-900/50 hover:bg-slate-800/80 transition-colors border border-slate-800/80">
-                        <i class="fa-brands fa-css3-alt text-3xl text-blue-500 mb-2"></i>
-                        <div class="text-sm font-semibold text-slate-200">CSS3</div>
-                    </div>
-
-                    <div class="p-4 rounded-xl bg-slate-900/50 hover:bg-slate-800/80 transition-colors border border-slate-800/80">
-                        <i class="fa-brands fa-js text-3xl text-yellow-400 mb-2"></i>
-                        <div class="text-sm font-semibold text-slate-200">JavaScript</div>
-                    </div>
-
-                    <div class="p-4 rounded-xl bg-slate-900/50 hover:bg-slate-800/80 transition-colors border border-slate-800/80">
-                        <i class="fa-brands fa-react text-3xl text-cyan-400 mb-2"></i>
-                        <div class="text-sm font-semibold text-slate-200">React</div>
-                    </div>
-
-                    <div class="p-4 rounded-xl bg-slate-900/50 hover:bg-slate-800/80 transition-colors border border-slate-800/80">
-                        <i class="fa-brands fa-node-js text-3xl text-green-500 mb-2"></i>
-                        <div class="text-sm font-semibold text-slate-200">Node.js</div>
-                    </div>
-
-                    <div class="p-4 rounded-xl bg-slate-900/50 hover:bg-slate-800/80 transition-colors border border-slate-800/80">
-                        <i class="fa-brands fa-git-alt text-3xl text-red-500 mb-2"></i>
-                        <div class="text-sm font-semibold text-slate-200">Git</div>
-                    </div>
-
-                </div>
-            </div>
-        </section>
-
-        <!-- ========================================== -->
-        <!-- 7. CONTACT SECTION                         -->
-        <!-- ========================================== -->
-        <section id="contact" class="scroll-mt-28 space-y-8 pb-16">
-            <div class="text-center space-y-2">
-                <div class="font-mono text-xs text-brand-500 tracking-wider uppercase">// Get In Touch</div>
-                <h2 class="text-3xl sm:text-4xl font-bold text-white">Let's Connect</h2>
-                <p class="text-slate-400 text-sm max-w-xl mx-auto">Have a question or want to work together? Send me a message below!</p>
-            </div>
-
-            <div class="max-w-2xl mx-auto glass-panel rounded-3xl p-8">
-                <form id="contact-form" onsubmit="handleFormSubmit(event)" class="space-y-6">
-                    <div>
-                        <label class="block text-xs font-mono text-slate-400 mb-2">Your Name</label>
-                        <input type="text" required placeholder="John Doe" class="w-full px-4 py-3 rounded-xl bg-slate-900/80 border border-slate-800 text-slate-100 focus:outline-none focus:border-brand-500 text-sm transition-colors">
-                    </div>
-
-                    <div>
-                        <label class="block text-xs font-mono text-slate-400 mb-2">Email Address</label>
-                        <input type="email" required placeholder="john@example.com" class="w-full px-4 py-3 rounded-xl bg-slate-900/80 border border-slate-800 text-slate-100 focus:outline-none focus:border-brand-500 text-sm transition-colors">
-                    </div>
-
-                    <div>
-                        <label class="block text-xs font-mono text-slate-400 mb-2">Message</label>
-                        <textarea rows="4" required placeholder="Hi! Let's talk about..." class="w-full px-4 py-3 rounded-xl bg-slate-900/80 border border-slate-800 text-slate-100 focus:outline-none focus:border-brand-500 text-sm transition-colors resize-none"></textarea>
-                    </div>
-
-                    <button type="submit" class="w-full py-3.5 rounded-xl bg-brand-600 hover:bg-brand-500 text-white font-medium text-sm transition-all duration-200 shadow-lg shadow-brand-600/30 cursor-pointer">
-                        Send Message <i class="fa-regular fa-paper-plane ml-2"></i>
-                    </button>
-                </form>
-
-                <!-- Feedback Message Container -->
-                <div id="form-message" class="hidden mt-4 p-4 rounded-xl text-center text-sm"></div>
-            </div>
-        </section>
-
+      </div>
     </main>
+  </div>
+  <div class="toast" id="toast" role="status"></div>
 
-    <!-- FOOTER -->
-    <footer class="border-t border-slate-900 py-8 text-center text-xs text-slate-500 font-mono">
-        <p>© 2026 Developer Portfolio. Built for GitHub Pages.</p>
-    </footer>
+  <script>
+    const toast = document.getElementById("toast");
+    let toastTimer;
 
-    <!-- ========================================== -->
-    <!-- JAVASCRIPT LOGIC                           -->
-    <!-- ========================================== -->
-    <script>
-        // Array of multilingual greetings for the intro animation
-        const greetings = [
-            "Hello!",      // English
-            "¡Hola!",      // Spanish
-            "Bonjour!",    // French
-            "Ciao!",       // Italian
-            "Hallo!",      // German
-            "Olá!",        // Portuguese
-            "Welcome!"     // Final Welcome
-        ];
+    function notify(message) {
+      toast.textContent = message;
+      toast.classList.add("show");
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => toast.classList.remove("show"), 2200);
+    }
 
-        let greetingIndex = 0;
+    function like(button) {
+      const count = button.querySelector("span");
+      const liked = button.dataset.liked === "true";
+      button.dataset.liked = String(!liked);
+      button.firstChild.textContent = liked ? "♡ " : "♥ ";
+      count.textContent = Number(count.textContent) + (liked ? -1 : 1);
+      button.style.color = liked ? "" : "#ed5e9c";
+    }
 
-        // Auto-run animated text cycle as soon as page loads
-        window.addEventListener('DOMContentLoaded', () => {
-            const greetingEl = document.getElementById('greeting-text');
-            const greetingSub = document.getElementById('greeting-sub');
-            const enterBtn = document.getElementById('enter-btn');
+    document.querySelectorAll(".nav button").forEach(button => {
+      button.addEventListener("click", () => {
+        document.querySelector(".nav button.active")?.classList.remove("active");
+        button.classList.add("active");
+        const page = button.dataset.page;
+        if (page !== "Home") notify(page + " view selected");
+      });
+    });
 
-            // Fade in initial greeting
-            setTimeout(() => {
-                greetingEl.classList.remove('opacity-0', 'scale-95');
-                greetingEl.classList.add('opacity-100', 'scale-100');
-            }, 100);
+    document.querySelectorAll(".story").forEach(story => {
+      story.addEventListener("click", () => {
+        const name = story.querySelector(".story-name").textContent;
+        notify(name === "Your story" ? "Create your first story ✨" : `Opening ${name}’s story`);
+      });
+    });
 
-            // Cycle through greetings sequentially
-            const interval = setInterval(() => {
-                if (greetingIndex < greetings.length - 1) {
-                    greetingIndex++;
-                    greetingEl.classList.add('opacity-0', 'scale-95');
-                    
-                    setTimeout(() => {
-                        greetingEl.textContent = greetings[greetingIndex];
-                        greetingEl.classList.remove('opacity-0', 'scale-95');
-                        greetingEl.classList.add('opacity-100', 'scale-100');
-                    }, 200);
-                } else {
-                    clearInterval(interval);
-                    // Fade in subtext and button after sequence completes
-                    greetingSub.classList.remove('opacity-0');
-                    enterBtn.classList.remove('opacity-0');
-                }
-            }, 500);
-        });
+    document.querySelectorAll(".chat-row").forEach(row => {
+      row.addEventListener("click", () => {
+        notify(`Opening chat with ${row.querySelector("strong").textContent}`);
+      });
+    });
 
-        // Function to dismiss greeting overlay smoothly
-        function dismissGreeting() {
-            const overlay = document.getElementById('greeting-overlay');
-            overlay.style.opacity = '0';
-            overlay.style.visibility = 'hidden';
-        }
+    document.getElementById("search").addEventListener("input", event => {
+      const query = event.target.value.trim().toLowerCase();
+      document.querySelectorAll(".story, .chat-row, .feed-card").forEach(item => {
+        item.hidden = query && !item.dataset.search.includes(query);
+      });
+      const noChats = ![...document.querySelectorAll(".chat-row")].some(x => !x.hidden);
+      const noFeed = ![...document.querySelectorAll(".feed-card")].some(x => !x.hidden);
+      document.getElementById("chatEmpty").style.display = noChats ? "block" : "none";
+      document.getElementById("feedEmpty").style.display = noFeed ? "block" : "none";
+    });
 
-        // Toggle mobile navigation menu
-        function toggleMobileMenu() {
-            const menu = document.getElementById('mobile-menu');
-            menu.classList.toggle('hidden');
-        }
-
-        // Handle contact form submission
-        function handleFormSubmit(e) {
-            e.preventDefault();
-            const messageBox = document.getElementById('form-message');
-            messageBox.className = "mt-4 p-4 rounded-xl text-center text-sm bg-emerald-500/10 text-emerald-400 border border-emerald-500/20";
-            messageBox.textContent = "Thank you! Your message has been received.";
-            messageBox.classList.remove('hidden');
-
-            // Clear input fields
-            document.getElementById('contact-form').reset();
-
-            // Hide success message after 4 seconds
-            setTimeout(() => {
-                messageBox.classList.add('hidden');
-            }, 4000);
-        }
-    </script>
+    const hour = new Date().getHours();
+    document.getElementById("greeting").textContent =
+      `${hour < 12 ? "Good morning" : hour < 18 ? "Good afternoon" : "Good evening"}, Jamie ✨`;
+  </script>
 </body>
 </html>
